@@ -1,6 +1,7 @@
 .DS_Store
-tmux
-iterm2
-github-copilot
 configstore
+envman
+github-copilot
+iterm2
+tmux
 

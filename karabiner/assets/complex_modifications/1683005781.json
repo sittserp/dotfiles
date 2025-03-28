@@ -1,1 +1,0 @@
-{"title":"CTRL-8 to F13 For Quick GREP","rules":[{"description":"CTRL-8 to F13 For Quick GREP","manipulators":[{"type":"basic","from":{"modifiers":{"mandatory":["left_control"]},"key_code":"8"},"to":[{"repeat":false,"key_code":"f13"}]}]}]}

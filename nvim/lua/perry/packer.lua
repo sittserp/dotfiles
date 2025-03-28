@@ -1,5 +1,7 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
+-- When you edit this file, run :so to source this file, then :PackerSync
+
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
@@ -16,6 +18,25 @@ return require('packer').startup(function(use)
   use('ThePrimeagen/vim-be-good')
   use('tpope/vim-fugitive')
   use('github/copilot.vim')
+  use {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "main",
+    requires = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
+    },
+    opts = {
+      debug = true, -- Enable debugging
+      -- See Configuration section for rest
+    },
+    -- See Commands section for default commands if you want to lazy load on them
+  }
+  use {
+    'brianhuster/live-preview.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+  }
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function()

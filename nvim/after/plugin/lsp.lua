@@ -5,7 +5,7 @@ lsp.preset("recommended")
 lsp.ensure_installed({
   'eslint',
   'lua_ls',
-  'tsserver',
+  'ts_ls',
 })
 
 -- Fix Undefined global 'vim'
