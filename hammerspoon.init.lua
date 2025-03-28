@@ -1,7 +1,3 @@
-hs.hotkey.bind({ "ctrl" }, "8", function()
-  hs.eventtap.keyStroke({}, "F5")
-end)
-
 --[[
 Configuration lives in ~/Library/LaunchAgents/com.local.KeyRemapping.plist
 That plist is the way to do it so that your settings survive a reboot.
