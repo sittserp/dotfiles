@@ -6,6 +6,34 @@ hs.hotkey.bind({}, "F6", function()
   end
   hs.eventtap.keyStroke({}, "return")
 end)
+
+--[[
+Prevent double typing / key bounce
+Filters out duplicate key presses that occur within a short time window (debounce)
+Adjust debounceTime (in seconds) as needed - lower = less aggressive filtering
+--]]
+local debounceTime = 0.05 -- 50 milliseconds
+local lastKeyTime = {}
+local lastKeyCode = nil
+
+doubleTypeFilter = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
+  local keyCode = event:getKeyCode()
+  local currentTime = hs.timer.secondsSinceEpoch()
+  
+  -- Check if this is the same key pressed within debounce window
+  if lastKeyCode == keyCode and lastKeyTime[keyCode] then
+    local timeDiff = currentTime - lastKeyTime[keyCode]
+    if timeDiff < debounceTime then
+      -- Suppress the duplicate keypress
+      return true
+    end
+  end
+  
+  -- Update tracking
+  lastKeyCode = keyCode
+  lastKeyTime[keyCode] = currentTime
+  return false
+end):start()
 --[[
 Configuration lives in ~/Library/LaunchAgents/com.local.KeyRemapping.plist
 That plist is the way to do it so that your settings survive a reboot.
