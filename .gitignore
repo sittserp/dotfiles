@@ -1,7 +1,19 @@
 .DS_Store
-configstore
-envman
-github-copilot
-iterm2
-tmux
 
+# --- credentials / auth state (this repo is checked out at ~/.config) -------
+1Password/
+acli/
+gh/
+github-copilot/
+op/
+*.local
+*.backup.*
+*_token*
+*credentials*
+
+# --- machine-generated / not worth tracking --------------------------------
+configstore/
+envman/
+iterm2/
+tmux/
+raycast/

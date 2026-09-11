@@ -1,0 +1,88 @@
+# Determine which branch is on origin, e.g. staging
+# git show-ref | grep $(git show-ref --hash origin/staging)
+
+# cleanup local branches
+# git branch | grep --invert-match 'working\|production' | xargs git branch -d
+
+# squash all commits on a branch
+# git switch yourBranch
+# git reset --soft $(git merge-base master HEAD)
+# git commit -m "one commit on yourBranch"
+# git push --force
+
+[user]
+  email = sittserp@gmail.com
+  name = Perry Sittser
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+[pull]
+  rebase = true
+[alias]
+  default = "!f() { git remote set-head origin --auto >/dev/null 2>&1 && git rev-parse --abbrev-ref origin/HEAD | sed 's:.*/::'; };f"
+  squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+    #view = "!f() { git fetch && git diff --name-only @ @{u}; }; f"
+  view = "!f() { git fetch && git diff --stat ..@{u}; }; f"
+  review = log --graph --boundary --oneline --decorate '..@{u}'
+  re = rebase
+  rabort = rebase --abort
+  mabort = merge --abort
+  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+  st = status
+  co = checkout
+  cogrep = "!f() { git branch | grep \"$1\" | xargs git checkout; }; f"
+  ci = commit
+  br = branch
+  mg = merge
+  mgnf = merge --no-ff
+  df = diff
+  dc = diff --cached
+  dif = diff --color-words
+  force = "!f(){ git push origin $(git branch --show-current) --force-with-lease; }; f"
+  hist = log --graph --full-history --all --pretty=format:'%Cred%h%Creset %Cgreen(%ad)%Creset %s %C(yellow)%d%Creset %C(bold blue)<%an>%Creset' --date=short
+  last = log -1 --stat
+  unstage = reset HEAD --
+  uncommit = reset HEAD^
+  undo = revert
+  amend = commit --amend
+  mod = "!f() { git status | grep modified; }; f"
+  who = shortlog -n -s --no-merges #contributors
+  hide = update-index --assume-unchanged
+  unhide = update-index --no-assume-unchanged
+  hidden = !sh -c 'git ls-files -v | grep "^h"'
+  new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+  ls = ls-tree
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all
+  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+  sortdiff = !sh -c 'git diff "$@" | grep "^[+-]" | sort --key=1.2 | uniq -u -s1'
+[push]
+  default = current
+[core]
+  trustctime = false
+  editor = vim
+  filemode = false
+  autocrlf = input
+  whitespace = cr-at-eol
+[color]
+  ui = true
+[credential]
+  helper = cache --timeout=3600
+[merge]
+  tool = vimdiff
+[mergetool]
+  keeptemporaries = false
+  keepbackups = false
+  prompt = false
+  trustexitcode = false
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+[url "ssh://git@github.com"]
+  insteadOf = https://github.com
+
+# Machine-specific overrides (work email, credential helpers, etc).
+# Untracked; git silently ignores this if the file does not exist.
+[include]
+  path = ~/.gitconfig.local
