@@ -13,7 +13,6 @@ if command -v mise >/dev/null 2>&1; then
 fi
 
 # --- path ------------------------------------------------------------------
-export PATH="$PATH:$HOME/.local/share/nvim/site/pack/packer/start/postgres_lsp"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # --- aliases ---------------------------------------------------------------
