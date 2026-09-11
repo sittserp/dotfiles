@@ -14,7 +14,7 @@ to `~/.config/nvim` by hand.
 
 | Path | Links to | What it is |
 | --- | --- | --- |
-| `nvim/` | `~/.config/nvim` *(linked manually)* | Neovim config — packer, LSP, telescope, harpoon |
+| `nvim/` | `~/.config/nvim` *(linked manually)* | Neovim config — lazy.nvim, native LSP, telescope, harpoon |
 | `home/.zshrc` | `~/.zshrc` | Shell: mise activation, PATH, aliases |
 | `home/.config/mise/config.toml` | `~/.config/mise/config.toml` | mise: global runtime versions + settings |
 | `home/.gitconfig` | `~/.gitconfig` | Git identity, aliases, `insteadOf` SSH rewrites |
@@ -84,6 +84,28 @@ direnv:
 [env]
 RAILS_ENV = "development"
 ```
+
+## Neovim plugins (lazy.nvim)
+
+Plugins are declared in [`nvim/lua/perry/lazy.lua`](nvim/lua/perry/lazy.lua) and
+managed by [lazy.nvim](https://lazy.folke.io), which replaced packer (archived
+upstream in Aug 2023). lazy bootstraps itself on first launch, so a fresh machine
+needs no install step beyond opening `nvim`.
+
+```
+:Lazy           status UI — install, update, profile startup
+:Lazy sync      make the installed set match lazy.lua, then update
+:Lazy restore   roll every plugin back to lazy-lock.json
+```
+
+`nvim/lazy-lock.json` pins the exact commit of every plugin and **is committed** —
+that is what makes the setup reproducible. Commit it whenever you `:Lazy sync`.
+
+LSP uses Neovim's native `vim.lsp.config` / `vim.lsp.enable` API (0.11+), wired up in
+[`nvim/after/plugin/lsp.lua`](nvim/after/plugin/lsp.lua). Servers are installed by
+mason; add one to `ensure_installed` there and restart. There is deliberately no
+lsp-zero: it is deprecated, and it called the removed `require('lspconfig')`
+framework internally.
 
 ## Secrets and machine-specific settings
 

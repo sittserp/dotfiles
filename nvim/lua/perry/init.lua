@@ -1,9 +1,8 @@
+-- remap first: it sets mapleader, which has to be set before lazy loads any
+-- plugin that defines <leader> mappings.
 require("perry.remap")
 require("perry.set")
-require 'lspconfig'.gopls.setup {}
-require 'lspconfig'.ts_ls.setup {}
-require 'lspconfig'.solargraph.setup {}
-require("CopilotChat").setup {
-  debug = true, -- Enable debugging
-  -- See Configuration section for rest
-}
+require("perry.lazy")
+
+-- LSP servers, completion, and CopilotChat are configured in after/plugin/,
+-- which nvim sources once the plugins on the runtimepath have loaded.
