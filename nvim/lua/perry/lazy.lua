@@ -19,8 +19,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
+    -- Was pinned to 0.1.3 (Sep 2023), which called the now-deprecated
+    -- vim.tbl_flatten on every grep. v0.2.2 drops it and needs nvim > 0.10.4.
+    -- grep_string/find_files/git_files/buffers are unchanged across the bump.
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.3",
+    tag = "v0.2.2",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
