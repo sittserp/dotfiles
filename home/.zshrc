@@ -4,18 +4,16 @@
 # ---------------------------------------------------------------------------
 
 # --- version managers ------------------------------------------------------
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
-nvm use default --silent  # activate the default node on every shell
-
-eval "$(direnv hook zsh)"
+# mise replaces rbenv/nvm/pyenv/direnv: one tool for every language runtime,
+# plus per-project env vars. Global defaults live in ~/.config/mise/config.toml;
+# a project overrides them with its own mise.toml, .ruby-version, or .nvmrc.
+# Guarded so a machine without mise yet gets a working shell, not an error.
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
 
 # --- path ------------------------------------------------------------------
-export PATH="$PATH:/.local/share/nvim/site/pack/packer/start/postgres_lsp"
+export PATH="$PATH:$HOME/.local/share/nvim/site/pack/packer/start/postgres_lsp"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # --- aliases ---------------------------------------------------------------

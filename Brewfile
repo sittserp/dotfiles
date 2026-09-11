@@ -7,8 +7,6 @@ tap "nikitabobko/tap"
 brew "bash"
 # Core application library for C
 brew "glib"
-# Load/unload environment variables based on $PWD
-brew "direnv"
 # Pack, ship and run any application as a lightweight container
 brew "docker", link: false
 # Play, record, convert, and stream select audio and video codecs
@@ -31,6 +29,8 @@ brew "lua"
 brew "memcached", restart_service: :changed
 # Scalable distributed version control system
 brew "mercurial"
+# Polyglot runtime manager — replaces rbenv, nvm, pyenv, and direnv
+brew "mise"
 # Open source relational database management system
 brew "mysql"
 # Open source relational database management system
@@ -41,22 +41,10 @@ brew "mysql@8.0", link: true
 brew "neovim"
 # HTTP/2 C Library
 brew "nghttp2"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node"
-# Manage multiple Node.js versions
-brew "nvm"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
 # Object-relational database system
 brew "postgresql@14"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.9"
-# Install various Ruby versions and implementations
-brew "ruby-build"
-# Ruby version manager
-brew "rbenv"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Database of common MIME types

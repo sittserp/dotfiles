@@ -1,0 +1,14 @@
+# Global tool defaults, used in any directory that doesn't specify its own.
+# A project overrides these with a mise.toml, .tool-versions, or an idiomatic
+# version file (see [settings] below).
+[tools]
+go = "latest"
+node = "lts"
+python = "latest"
+ruby = "latest"
+
+[settings]
+# Off by default in mise. Enabling it for ruby and node means repos that still
+# commit .ruby-version / .nvmrc for rbenv and nvm users — teacher_dashboard,
+# for one — pin the correct runtime here too, with no mise.toml of their own.
+idiomatic_version_file_enable_tools = ["ruby", "node"]
