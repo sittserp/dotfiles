@@ -49,18 +49,23 @@ require("lazy").setup({
     dependencies = { "nvim-telescope/telescope.nvim" },
   },
 
-  -- Pinned to master deliberately: the `main` branch is an in-progress rewrite
-  -- with an incompatible API, and after/plugin/treesitter.lua uses the master
-  -- one (require('nvim-treesitter.configs')). Don't drop this branch pin
-  -- without porting that file.
+  -- `main` branch: a full rewrite, not an upgrade. It only installs parsers
+  -- and queries -- highlighting/folds/indent are core Neovim features enabled
+  -- per buffer in after/plugin/treesitter.lua. Requires nvim >= 0.12 and the
+  -- tree-sitter CLI (brew install tree-sitter-cli; the `tree-sitter` formula
+  -- is library-only). master is frozen at nvim 0.11 and breaks on 0.12.
+  --
+  -- The plugin does not support lazy-loading, hence lazy = false. Parsers are
+  -- version-locked to the plugin, so :TSUpdate must run on every update.
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
   },
+  -- Uses core vim.treesitter only, so it is unaffected by the master -> main
+  -- move.
   "nvim-treesitter/nvim-treesitter-context",
-  -- Archived upstream; nvim has built-in :InspectTree / :Inspect now.
-  "nvim-treesitter/playground",
 
   -- LSP. lsp-zero used to tie these together; it is deprecated and called
   -- nvim-lspconfig's removed framework internally, so after/plugin/lsp.lua
