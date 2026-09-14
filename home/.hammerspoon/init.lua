@@ -164,7 +164,7 @@ controlWatcher = hs.eventtap.new({ hs.eventtap.event.types.flagsChanged }, funct
         -- check for right_control
         if evt:getKeyCode() == 62 then
           -- vim understands ^[ as Escape
-          hs.eventtap.keyStroke({ "ctrl" }, "[")
+          hs.eventtap.keyStroke({}, "escape")
           -- check for left_control
         elseif evt:getKeyCode() == 59 then
           -- vim understands ^M as Return
